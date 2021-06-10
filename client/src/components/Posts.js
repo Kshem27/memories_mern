@@ -8,7 +8,7 @@ const Posts = ({ setCurrentId }) => {
 	return !posts.length ? (
 		<h1>LOADING......</h1>
 	) : (
-		<div className='container d-flex flex-column flex-md-row flex-wrap align-items-center justify-content-lg-start justify-content-center border mb-5'>
+		<div className='container d-flex flex-column flex-md-row flex-wrap align-items-center justify-content-lg-start justify-content-center mb-5'>
 			{posts.map((post) => {
 				return <Post key={post._id} post={post} setCurrentId={setCurrentId} />;
 			})}
