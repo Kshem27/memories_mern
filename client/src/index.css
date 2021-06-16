@@ -92,6 +92,9 @@ body {
 	.signupform {
 		width: 100%;
 	}
+	.signContainer {
+		width: 90%;
+	}
 }
 nav {
 	background: var(--primary-clr-900);
