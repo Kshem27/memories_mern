@@ -5,21 +5,22 @@ import { createPost, updatePost } from '../actions/posts';
 import FileBase from 'react-file-base64';
 const Form = ({ currentId, setCurrentId }) => {
 	const dispatch = useDispatch();
-	const [ postData, setPostData ] = useState({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
+	const [ postData, setPostData ] = useState({ title: '', message: '', tags: '', selectedFile: '' });
 	const post = useSelector((state) => (currentId ? state.posts.find((post) => post._id === currentId) : null));
+	const user = JSON.parse(localStorage.getItem('profile'));
 	const handleChange = (e) => {
 		setPostData({ ...postData, [e.target.name]: e.target.value });
 	};
 	const clear = () => {
 		setCurrentId(null);
-		setPostData({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
+		setPostData({ title: '', message: '', tags: '', selectedFile: '' });
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (currentId) {
-			dispatch(updatePost(currentId, postData));
+			dispatch(updatePost(currentId, { ...postData, name: user && user.result && user.result.name }));
 		} else {
-			dispatch(createPost(postData));
+			dispatch(createPost({ ...postData, name: user && user.result && user.result.name }));
 		}
 		clear();
 	};
@@ -29,22 +30,17 @@ const Form = ({ currentId, setCurrentId }) => {
 		},
 		[ post ]
 	);
+	if (!(user && user.result && user.result.name)) {
+		return (
+			<div className='container form'>
+				<h1>Please Sign in to create your own memories and like other's memories</h1>
+			</div>
+		);
+	}
 	return (
-		<div className='container'>
-			<h1>{currentId ? `Editing` : `Creating`} a Memory</h1>
+		<div className='container form'>
+			<h4 className='text-center'>{currentId ? `Editing` : `Creating`} a Memory</h4>
 			<form onSubmit={handleSubmit}>
-				<div className='mb-3'>
-					<input
-						type='text'
-						name='creator'
-						placeholder='Creator'
-						className='form-control'
-						value={postData.creator}
-						onChange={(e) => {
-							handleChange(e);
-						}}
-					/>
-				</div>
 				<div className='mb-3'>
 					<input
 						type='text'
@@ -87,12 +83,14 @@ const Form = ({ currentId, setCurrentId }) => {
 					multiple={false}
 					onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })}
 				/>
-				<button className='btn btn-success ' type='submit'>
-					SUBMIT
-				</button>
-				<button className='btn btn-danger' onClick={clear}>
-					Clear
-				</button>
+				<div className='mt-3 d-block mx-auto'>
+					<button className='btn primary d-block formButton' type='submit'>
+						SUBMIT
+					</button>
+					<button className='btn accent d-block formButton mt-2' onClick={clear}>
+						Clear
+					</button>
+				</div>
 			</form>
 		</div>
 	);

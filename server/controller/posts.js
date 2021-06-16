@@ -4,10 +4,8 @@ export const getPosts = (req, res) => {
 	PostMessage.find({}).then((foundPosts) => res.json(foundPosts)).catch((error) => res.json(error));
 };
 export const createPost = (req, res) => {
-	const { title, message, selectedFile, creator, tags } = req.body;
-	const newPost = { title, message, selectedFile, creator, tags };
-	console.log(newPost);
-	PostMessage.create(newPost)
+	const post = req.body;
+	PostMessage.create({ ...post, creator: req.userId, createdAt: new Date().toISOString() })
 		.then((newPost) => res.status(201).json(newPost))
 		.catch((error) => res.status(409).json({ message: error.message }));
 };
@@ -28,13 +26,21 @@ export const updatePost = (req, res) => {
 };
 export const likePost = async (req, res) => {
 	const { id } = req.params;
+	if (!req.userId) return res.json({ message: 'on authenticated' });
 	const post = await PostMessage.findById(id);
-	PostMessage.findByIdAndUpdate(id, { likeCount: post.likeCount + 1 }, { new: true })
+	const index = post.likes.findIndex((id) => id === String(req.userId));
+	if (index === -1) {
+		post.likes.push(req.userId);
+	} else {
+		post.likes = post.likes.filter((id) => id !== String(req.userId));
+	}
+	PostMessage.findByIdAndUpdate(id, post, { new: true })
 		.then((updatedPost) => res.json(updatedPost))
 		.catch((error) => console.log(error));
 };
 export const deletePost = (req, res) => {
 	const { id } = req.params;
+
 	PostMessage.findByIdAndRemove(id)
 		.then(() => res.json({ message: 'Post deleted successfully.' }))
 		.catch((err) => res.status(404).send(`No post with id: ${id}`));
