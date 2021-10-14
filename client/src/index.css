@@ -1,24 +1,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 :root {
-	--primary-clr: #12232e;
+	/* --primary-clr: #12232e;
 	--accent-clr: #4da8da;
 	--accent-clr-900: #eefbfb;
-	--light-blue: #4da8da;
 	--primary-clr-900: #007cc7;
-	--shadow-clr: #203647;
+	--shadow-clr: #203647; */
+
+	/* --primary-clr: #0a2463ff;
+	--accent-clr: #fb3640ff;
+	--accent-clr-900: #247ba0ff;
+	--shadow-clr: #605f5eff;
+	--white-clr: #e2e2e2ff; */
 	--radius: 10px;
+
+	--primary-clr: #292f36ff;
+	--accent-clr: #4ecdc4ff;
+	--white-clr: #f7fff7ff;
+	--accent-clr-900: #ff6b6bff;
+	--shadow-clr: #ffe66dff;
 }
 
 .card {
-	width: 100%;
-	background: var(--shadow-clr);
-	color: var(--accent-clr-900);
+	/* width: 100%; */
+	color: var(--white-clr);
+	background: var(--primary-clr);
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
 }
 .card > img {
-	height: 200px;
+	height: 150px;
+	background: var(--primary-clr);
+	opacity: 0.3;
 }
 .editButton {
-	position: absolute;
+	position: relative;
 	top: 0.5rem;
 	right: 0.5rem;
 	color: white;
@@ -35,20 +49,17 @@
 	color: white;
 	top: 1rem;
 }
-@media screen and (min-width: 768px) {
+/* @media (min-width: 576px) {
 	.card {
-		width: 45%;
+		width: 16em;
 	}
-}
+} */
 body {
-	/* background-color: #77aa77;
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 2 1'%3E%3Cdefs%3E%3ClinearGradient id='a' gradientUnits='userSpaceOnUse' x1='0' x2='0' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%2377aa77'/%3E%3Cstop offset='1' stop-color='%234fd'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' gradientUnits='userSpaceOnUse' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23cf8' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23cf8' stop-opacity='1'/%3E%3C/linearGradient%3E%3ClinearGradient id='c' gradientUnits='userSpaceOnUse' x1='0' y1='0' x2='2' y2='2'%3E%3Cstop offset='0' stop-color='%23cf8' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23cf8' stop-opacity='1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='0' y='0' fill='url(%23a)' width='2' height='1'/%3E%3Cg fill-opacity='0.5'%3E%3Cpolygon fill='url(%23b)' points='0 1 0 0 2 0'/%3E%3Cpolygon fill='url(%23c)' points='2 1 2 0 0 0'/%3E%3C/g%3E%3C/svg%3E");
-	background-attachment: fixed;
-	background-size: cover; */
 	background-color: #12232e;
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 2 1'%3E%3Cdefs%3E%3ClinearGradient id='a' gradientUnits='userSpaceOnUse' x1='0' x2='0' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%2312232e'/%3E%3Cstop offset='1' stop-color='%23007cc7'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' gradientUnits='userSpaceOnUse' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23203647' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23203647' stop-opacity='1'/%3E%3C/linearGradient%3E%3ClinearGradient id='c' gradientUnits='userSpaceOnUse' x1='0' y1='0' x2='2' y2='2'%3E%3Cstop offset='0' stop-color='%23203647' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23203647' stop-opacity='1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='0' y='0' fill='url(%23a)' width='2' height='1'/%3E%3Cg fill-opacity='0.5'%3E%3Cpolygon fill='url(%23b)' points='0 1 0 0 2 0'/%3E%3Cpolygon fill='url(%23c)' points='2 1 2 0 0 0'/%3E%3C/g%3E%3C/svg%3E");
 	background-attachment: fixed;
 	background-size: cover;
+	/* background: var(--accent-clr-900); */
 	font-family: 'Poppins', sans-serif;
 }
 /* .navbar {
@@ -97,17 +108,19 @@ body {
 	}
 }
 nav {
-	background: var(--primary-clr-900);
+	background: var(--primary-clr);
 	margin: 10px 0;
 	border-radius: 10px;
-	text-transform: uppercase;
-	color: var(--primary-clr);
+	/* text-transform: uppercase; */
+	color: var(--accent-clr);
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
 }
 .form {
-	background: var(--primary-clr-900);
+	background: var(--primary-clr);
 	padding: 10px 20px;
 	border-radius: var(--radius);
-	color: var(--accent-clr-900);
+	color: var(--accent-clr);
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
 }
 .primary {
 	background: var(--primary-clr);
@@ -115,7 +128,7 @@ nav {
 	display: inline;
 }
 .primary:hover {
-	color: var(--accent-clr-900);
+	color: var(--white-clr);
 }
 .authForm {
 	color: var(--accent-clr-900);
@@ -125,5 +138,125 @@ nav {
 	color: var(--primary-clr);
 }
 .accent:hover {
+	color: var(--white-clr);
+}
+.page-link {
+	color: var(--accent-clr);
+	background: var(--primary-clr);
+	border: none;
+}
+.page-link:hover {
+	color: var(--primary-clr);
+	background: var(--accent-clr);
+}
+.pagebar {
+	background: var(--primary-clr);
+}
+.chip {
+	border: none;
+}
+.chip:focus {
+	outline: red;
+	color: white;
+	border: none;
+}
+.delete {
+	cursor: pointer;
+	text-decoration: none;
+	font-size: 0.75em;
+	display: inline;
 	color: var(--accent-clr-900);
+}
+.delete:hover {
+	color: var(--accent-clr);
+}
+.like {
+	display: flex;
+	align-items: center;
+	margin-left: 0;
+	color: var(--accent-clr);
+}
+.like:hover {
+	color: var(--white-clr);
+}
+.text-muted {
+	font-size: 0.75em;
+}
+.card-link {
+	font-size: 0.70em;
+}
+.cardFooter {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 0 0.25em;
+	margin: 0.25em 0;
+}
+
+/* .post-img {
+	width: 100%;
+	height: 25vh;
+} */
+.post-container {
+	background: var(--white-clr);
+	height: 70vh;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+	border-radius: var(--radius);
+}
+.post-container > div {
+	width: 50%;
+}
+@media screen and (max-width: 992px) {
+	.post-container {
+		height: inherit;
+	}
+	.post-container > div {
+		width: 80%;
+		margin-top: 0.5rem;
+	}
+}
+.info {
+	color: var(--primary-clr);
+}
+.post-img {
+	height: 90%;
+	background: green;
+}
+.img-post {
+	height: 100%;
+	width: 100%;
+	border-radius: var(--radius);
+}
+.card {
+	transition: all 0.1s ease-in;
+}
+.card:hover {
+	opacity: 0.8;
+}
+nav > div > h1 {
+	transition: all 0.2s ease-in;
+}
+nav > div > h1:hover {
+	color: #07918e;
+	cursor: pointer;
+}
+.card-link {
+	position: relative;
+}
+.recommended {
+	background: var(--white-clr);
+	border-radius: var(--radius);
+	margin-top: 2rem;
+	padding: 1rem 0.5rem;
+}
+.recommended-post {
+	padding: 0.25rem;
+	border-radius: var(--radius);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+.alert {
+	position: absolute;
+	z-index: 10;
+	top: 4rem;
+	left: 25%;
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaLock, FaGoogle } from 'react-icons/fa';
+import { FaLock, FaGoogle, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { GoogleLogin } from 'react-google-login';
@@ -20,7 +20,7 @@ const Auth = () => {
 		} catch (error) {
 			console.log(error);
 		}
-		console.log(res);
+		// console.log(res);
 	};
 	const googleFailure = (error) => {
 		console.log(error);
@@ -32,6 +32,7 @@ const Auth = () => {
 		});
 	};
 	const switchMode = () => {
+		setFormData({ firstName: '', lastName: '', email: '', password: '', confirmPassword: '' });
 		setIsSignUp((prevState) => !prevState);
 		setShowPassword(false);
 	};
@@ -97,14 +98,23 @@ const Auth = () => {
 						<label htmlFor='password' className='form-label'>
 							Password
 						</label>
-						<input
-							type={showPassword ? 'text' : 'password'}
-							className='form-control'
-							id='password'
-							name='password'
-							placeholder='Password'
-							onChange={(e) => handleChange(e)}
-						/>
+						<div className='input d-flex'>
+							<input
+								type={showPassword ? 'text' : 'password'}
+								className='form-control'
+								id='password'
+								name='password'
+								placeholder='Password'
+								onChange={(e) => handleChange(e)}
+							/>
+							<button
+								className='btn btn-outline-light'
+								type='button'
+								onClick={() => setShowPassword((prev) => !prev)}
+							>
+								{showPassword ? <FaEyeSlash /> : <FaEye />}
+							</button>
+						</div>
 					</div>
 				</React.Fragment>
 				{isSignUp && (
@@ -124,7 +134,7 @@ const Auth = () => {
 						</div>
 					</React.Fragment>
 				)}
-				<button type='submit' className='btn primary d-block mb-3 mx-auto '>
+				<button type='submit' className='btn accent d-block mb-3 mx-auto '>
 					{isSignUp ? 'Sign Up' : 'Sign In'}
 				</button>
 				<GoogleLogin
@@ -132,7 +142,7 @@ const Auth = () => {
 					render={(renderProps) => {
 						return (
 							<button
-								className='btn primary d-flex align-items-center mx-auto mb-3 float-start'
+								className='btn btn-warning d-flex align-items-center mx-auto mb-3 float-start'
 								onClick={renderProps.onClick}
 								disabled={renderProps.disabled}
 								variant='contained'
@@ -143,7 +153,7 @@ const Auth = () => {
 					}}
 					onSuccess={googleSuccess}
 					onFailure={googleFailure}
-					cookiePolicy='single_host_origin'
+					cookiePolicy={'single_host_origin'}
 				/>
 				<button type='button' className='btn btn-info d-block float-end' onClick={() => switchMode()}>
 					{isSignUp ? 'Already have an account? Sign In' : "Don't have an account? Sign Up"}

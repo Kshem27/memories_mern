@@ -1,20 +1,33 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import Auth from './components/Auth';
+import PostDetails from './components/PostDetails/PostDetails';
 const App = () => {
+	// const user = JSON.parse(localStorage.getItem('profile'));
+	// console.log(user);
 	return (
 		<Router>
-			<div className='container '>
+			<div className='container-fluid'>
 				<Navbar />
 				<Switch>
-					<Route path='/' exact>
+					<Route path='/' exact component={() => <Redirect to='/posts' />} />
+					<Route path='/posts' exact>
 						<Home />
 					</Route>
-					<Route path='/'>
-						<Auth />
+					<Route path='/posts/search' exact>
+						<Home />
 					</Route>
+					<Route path='/posts/:id'>
+						<PostDetails />
+					</Route>
+					<Route
+						path='/auth'
+						exact
+						component={() =>
+							!JSON.parse(localStorage.getItem('profile')) ? <Auth /> : <Redirect to='/posts' />}
+					/>
 				</Switch>
 			</div>
 		</Router>

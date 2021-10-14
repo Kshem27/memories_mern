@@ -24,12 +24,12 @@ const Navbar = () => {
 			}
 			setUser(JSON.parse(localStorage.getItem('profile')));
 		},
-		[ location ]
+		[ location, setUser ]
 	);
 	return (
 		<nav className='navbar navbar-light background-light'>
 			<div className='container-fluid d-flex flex-column flex-sm-row '>
-				<h1 className='h1 my-auto mx-auto mx-sm-0'>
+				<h1 className='h1 my-auto mx-auto mx-sm-0' onClick={() => history.push('/')}>
 					Memories <FaImages className='mb-2' />
 				</h1>
 				{user ? (
@@ -46,12 +46,12 @@ const Navbar = () => {
 							<FaUserAlt />
 						)}
 						<p className='my-auto mx-2'>{user.result.name}</p>
-						<button className='btn primary btn-sm' onClick={logout}>
+						<button className='btn accent btn-sm' onClick={() => logout()}>
 							Sign Out
 						</button>
 					</div>
 				) : (
-					<Link className='btn primary me-0' to='/auth'>
+					<Link className='btn btn-sm accent me-0' to='/auth'>
 						Sign In
 					</Link>
 				)}
