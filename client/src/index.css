@@ -260,3 +260,30 @@ nav > div > h1:hover {
 	top: 4rem;
 	left: 25%;
 }
+/* MODAL */
+.modal-container {
+	width: 100%;
+	min-height: 100vh;
+	background: rgba(0, 0, 0, 0.5);
+	display: grid;
+	place-items: center;
+	position: absolute;
+	z-index: 10;
+	top: 0;
+	left: 0;
+}
+.modal-content {
+	width: 30vw;
+	padding: 2rem;
+	position: relative;
+}
+.modal-content > .btn {
+	position: absolute;
+	right: 2rem;
+	top: 1rem;
+}
+@media screen and (max-width: 400px) {
+	.modal-content {
+		width: 70vw;
+	}
+}

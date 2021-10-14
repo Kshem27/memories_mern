@@ -50,7 +50,7 @@ export const updatePost = (req, res) => {
 		.then((post) => {
 			res.json(post);
 		})
-		.catch((error) => res.json(error));
+		.catch((error) => res.status(500).json({ message: error.message }));
 };
 export const likePost = async (req, res) => {
 	const { id } = req.params;

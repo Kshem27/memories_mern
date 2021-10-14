@@ -1,5 +1,5 @@
 import * as api from '../api';
-import { AUTH } from '../constants/actionTypes';
+import { AUTH, START_ERROR } from '../constants/actionTypes';
 
 export const signin = (formData, history) => async (dispatch) => {
 	try {
@@ -8,6 +8,8 @@ export const signin = (formData, history) => async (dispatch) => {
 		history.push('/');
 	} catch (error) {
 		console.log(error);
+		// console.log('hello');
+		dispatch({ type: START_ERROR, payload: error.response.data.message });
 	}
 };
 export const signup = (formData, history) => async (dispatch) => {
@@ -18,5 +20,6 @@ export const signup = (formData, history) => async (dispatch) => {
 		history.push('/');
 	} catch (error) {
 		console.log(error);
+		dispatch({ type: START_ERROR, payload: error.response.data.message });
 	}
 };

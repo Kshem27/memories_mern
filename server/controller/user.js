@@ -7,7 +7,7 @@ export const signin = async (req, res) => {
 
 	try {
 		const existingUser = await User.findOne({ email });
-		if (!existingUser) return res.status(404).json({ message: "User does'nt exist" });
+		if (!existingUser) return res.status(404).json({ message: "User doesn't exist" });
 
 		const isPasswordCorrect = await bcrypt.compare(password, existingUser.password);
 		if (!isPasswordCorrect) return res.status(400).json({ message: 'Invalid Credentials' });
@@ -29,7 +29,8 @@ export const signup = async (req, res) => {
 
 		if (existingUser) return res.status(404).json({ message: 'User with same email already exist' });
 
-		if (password !== confirmPassword) return res.status(404).json({ message: "passwords don't match" });
+		if (password !== confirmPassword)
+			return res.status(404).json({ message: 'Incorrect Password!! Please try again' });
 
 		const hashedPassword = await bcrypt.hash(password, 12); //12 is salt that determines the level of difficulty
 		const result = await User.create({ email, password: hashedPassword, name: `${firstName} ${lastName}` });

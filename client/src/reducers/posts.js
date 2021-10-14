@@ -7,10 +7,16 @@ import {
 	CREATE,
 	START_LOADING,
 	END_LOADING,
-	FETCH_POST
+	FETCH_POST,
+	START_ERROR,
+	END_ERROR
 } from '../constants/actionTypes';
-const posts = (state = { posts: [], isLoading: true }, action) => {
+const posts = (state = { posts: [], isLoading: true, isError: false, errorMessage: '' }, action) => {
 	switch (action.type) {
+		case START_ERROR:
+			return { ...state, isError: true, errorMessage: action.payload };
+		case END_ERROR:
+			return { ...state, isError: false };
 		case START_LOADING:
 			return { ...state, isLoading: true };
 		case END_LOADING:

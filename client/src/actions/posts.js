@@ -9,7 +9,8 @@ import {
 	DELETE,
 	CREATE,
 	SHOW_POST,
-	FETCH_POST
+	FETCH_POST,
+	START_ERROR
 } from '../constants/actionTypes';
 
 //ACTIOM CREATORS
@@ -21,6 +22,7 @@ export const getPosts = (page) => async (dispatch) => {
 		dispatch({ type: FETCH_ALL, payload: data });
 		dispatch({ type: END_LOADING });
 	} catch (error) {
+		dispatch({ type: START_ERROR, payload: error.response.data.message });
 		console.log(error.message);
 	}
 };
@@ -32,6 +34,7 @@ export const getPost = (id) => async (dispatch) => {
 		dispatch({ type: FETCH_POST, payload: data });
 		dispatch({ type: END_LOADING });
 	} catch (error) {
+		dispatch({ type: START_ERROR, payload: error.response.data.message });
 		console.log(error.message);
 	}
 };
@@ -43,6 +46,7 @@ export const getPostBySearch = (searchQuery) => async (dispatch) => {
 		// console.log(data);
 		dispatch({ type: END_LOADING });
 	} catch (error) {
+		dispatch({ type: START_ERROR, payload: error.response.data.message });
 		console.log(error.message);
 	}
 };
@@ -53,6 +57,7 @@ export const createPost = (post) => async (dispatch) => {
 		dispatch({ type: CREATE, payload: data });
 		dispatch({ type: END_LOADING });
 	} catch (error) {
+		dispatch({ type: START_ERROR, payload: error.response.data.message });
 		console.log(error.message);
 	}
 };
@@ -61,6 +66,7 @@ export const updatePost = (id, post) => async (dispatch) => {
 		const { data } = await api.updatePost(id, post);
 		dispatch({ type: UPDATE, payload: data });
 	} catch (error) {
+		dispatch({ type: START_ERROR, payload: error.response.data.message });
 		console.log(error.message);
 	}
 };
@@ -69,6 +75,7 @@ export const deletePost = (id) => async (dispatch) => {
 		await api.deletePost(id);
 		dispatch({ type: DELETE, payload: id });
 	} catch (error) {
+		dispatch({ type: START_ERROR, payload: error.response.data.message });
 		console.log(error);
 	}
 };
@@ -77,6 +84,7 @@ export const likePost = (id) => async (dispatch) => {
 		const { data } = await api.likePost(id);
 		dispatch({ type: LIKE_POST, payload: data });
 	} catch (error) {
+		dispatch({ type: START_ERROR, payload: error.response.data.message });
 		console.log(error);
 	}
 };
@@ -85,6 +93,7 @@ export const showPost = (id) => async (dispatch) => {
 		const { data } = await api.showPost(id);
 		dispatch({ type: SHOW_POST, payload: data });
 	} catch (error) {
+		dispatch({ type: START_ERROR, payload: error.response.data.message });
 		console.log(error);
 	}
 };
