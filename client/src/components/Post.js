@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaEdit, FaThumbsUp, FaRegTrashAlt } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { deletePost, likePost } from '../actions/posts';
@@ -10,10 +10,14 @@ const Post = ({ post, setCurrentId }) => {
 	const handleDelete = () => {
 		dispatch(deletePost(post._id));
 	};
+	const handleLike = () => {
+		dispatch(likePost(post._id));
+	};
 	const openPost = () => {
 		history.push(`/posts/${post._id}`);
 	};
 	const { title, creator, message, selectedFile, tags, name, likes } = post;
+	const [ like, setLike ] = useState(post && post.likes);
 	const Likes = () => {
 		if (likes.length > 0) {
 			return likes.find(
@@ -22,9 +26,7 @@ const Post = ({ post, setCurrentId }) => {
 			) ? (
 				<button
 					className='btn btn-sm card-link like d-flex align-items-center stretched-link'
-					onClick={() => {
-						dispatch(likePost(post._id));
-					}}
+					onClick={handleLike}
 					disabled={!(user && user.result)}
 				>
 					<FaThumbsUp />
@@ -37,9 +39,7 @@ const Post = ({ post, setCurrentId }) => {
 			) : (
 				<button
 					className='btn btn-sm card-link like d-flex align-items-center stretched-link'
-					onClick={() => {
-						dispatch(likePost(post._id));
-					}}
+					onClick={handleLike}
 					disabled={!(user && user.result)}
 				>
 					<FaThumbsUp />&nbsp;
@@ -50,9 +50,7 @@ const Post = ({ post, setCurrentId }) => {
 		return (
 			<button
 				className='btn btn-sm card-link like d-flex align-items-center stretched-link'
-				onClick={() => {
-					dispatch(likePost(post._id));
-				}}
+				onClick={handleLike}
 				disabled={!(user && user.result)}
 			>
 				<FaThumbsUp />&nbsp;Like

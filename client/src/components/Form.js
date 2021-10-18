@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { createPost, updatePost } from '../actions/posts';
+import { START_ERROR } from '../constants/actionTypes';
 import FileBase from 'react-file-base64';
 
 const Form = ({ currentId, setCurrentId }) => {
@@ -18,6 +19,7 @@ const Form = ({ currentId, setCurrentId }) => {
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		if (postData.selectedFile === '') return dispatch({ type: START_ERROR, payload: 'Please upload an image!!' });
 		if (currentId) {
 			dispatch(updatePost(currentId, { ...postData, name: user && user.result && user.result.name }));
 		} else {
@@ -52,6 +54,7 @@ const Form = ({ currentId, setCurrentId }) => {
 						onChange={(e) => {
 							handleChange(e);
 						}}
+						required
 					/>
 				</div>
 				<div className='mb-1'>
@@ -64,6 +67,7 @@ const Form = ({ currentId, setCurrentId }) => {
 						onChange={(e) => {
 							handleChange(e);
 						}}
+						required
 					/>
 				</div>
 				<div className='mb-1'>
@@ -77,6 +81,7 @@ const Form = ({ currentId, setCurrentId }) => {
 							setPostData({ ...postData, tags: e.target.value.split(',') });
 							console.log(postData);
 						}}
+						required
 					/>
 				</div>
 				<FileBase

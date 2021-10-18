@@ -2,7 +2,6 @@ import PostMessage from '../models/postMessage.js';
 
 export const getPosts = async (req, res) => {
 	const { page } = req.query;
-	// console.log(page);
 	try {
 		const LIMIT = 4;
 		const startIndex = (Number(page) - 1) * LIMIT; //get Startindex of every page
@@ -66,9 +65,25 @@ export const likePost = async (req, res) => {
 		.then((updatedPost) => res.json(updatedPost))
 		.catch((error) => console.log(error));
 };
-export const deletePost = (req, res) => {
-	const { id } = req.params;
+export const commentPost = async (req, res) => {
+	try {
+		const { id } = req.params;
+		const { val } = req.body;
 
+		const post = await PostMessage.findById(id);
+
+		await post.comments.push(val);
+
+		const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true });
+		res.json(updatedPost);
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+};
+export const deletePost = async (req, res) => {
+	const { id } = req.params;
+	const post = await PostMessage.findById(id);
+	if (post.creator !== req.userId) return res.json({ message: 'User not authorized' });
 	PostMessage.findByIdAndRemove(id)
 		.then(() => res.json({ message: 'Post deleted successfully.' }))
 		.catch((err) => res.status(404).send(`No post with id: ${id}`));

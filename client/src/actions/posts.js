@@ -10,7 +10,8 @@ import {
 	CREATE,
 	SHOW_POST,
 	FETCH_POST,
-	START_ERROR
+	START_ERROR,
+	COMMENT
 } from '../constants/actionTypes';
 
 //ACTIOM CREATORS
@@ -22,7 +23,7 @@ export const getPosts = (page) => async (dispatch) => {
 		dispatch({ type: FETCH_ALL, payload: data });
 		dispatch({ type: END_LOADING });
 	} catch (error) {
-		dispatch({ type: START_ERROR, payload: error.response.data.message });
+		// dispatch({ type: START_ERROR, payload: error.response.data.message });
 		console.log(error.message);
 	}
 };
@@ -83,6 +84,17 @@ export const likePost = (id) => async (dispatch) => {
 	try {
 		const { data } = await api.likePost(id);
 		dispatch({ type: LIKE_POST, payload: data });
+	} catch (error) {
+		dispatch({ type: START_ERROR, payload: error.response.data.message });
+		console.log(error);
+	}
+};
+export const commentPost = (value, id) => async (dispatch) => {
+	try {
+		const { data } = await api.comment(value, id);
+		dispatch({ type: COMMENT, payload: data });
+		console.log(data);
+		return data.comments;
 	} catch (error) {
 		dispatch({ type: START_ERROR, payload: error.response.data.message });
 		console.log(error);

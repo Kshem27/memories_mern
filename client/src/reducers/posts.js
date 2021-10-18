@@ -9,7 +9,8 @@ import {
 	END_LOADING,
 	FETCH_POST,
 	START_ERROR,
-	END_ERROR
+	END_ERROR,
+	COMMENT
 } from '../constants/actionTypes';
 const posts = (state = { posts: [], isLoading: true, isError: false, errorMessage: '' }, action) => {
 	switch (action.type) {
@@ -41,6 +42,16 @@ const posts = (state = { posts: [], isLoading: true, isError: false, errorMessag
 			return {
 				...state,
 				posts: state.posts.map((post) => (post._id === action.payload._id ? action.payload : post))
+			};
+		case COMMENT:
+			return {
+				...state,
+				posts: state.posts.map((post) => {
+					if (post._id === action.payload._id) {
+						return action.payload;
+					}
+					return post;
+				})
 			};
 		// case SHOW_POST:
 		// 	return posts.find((post) => post._id === action.payload.id);

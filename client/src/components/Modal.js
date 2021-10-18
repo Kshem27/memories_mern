@@ -22,7 +22,7 @@ const Modal = ({ content }) => {
 			<div className='modal-content'>
 				{content}
 				<button className='btn text-danger' onClick={closeModal}>
-					X
+					<strong>X</strong>
 				</button>
 			</div>
 		</div>

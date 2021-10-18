@@ -33,7 +33,7 @@ const Home = () => {
 			searchPost();
 		}
 	};
-	const handleAdd = (tag) => setTags([ ...tags, tag ]);
+	const handleAdd = (tag) => setTags([ ...tags, tag.toLowerCase() ]);
 	const handleDelete = (tagToDelete) => setTags(tags.filter((tag) => tag !== tagToDelete));
 	const searchPost = () => {
 		// console.log(tags);

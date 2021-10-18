@@ -5,6 +5,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 import { getPost, getPostBySearch } from '../../actions/posts';
 import Loading from '../Loading';
+import CommentSection from './CommentSection';
 const PostDetails = () => {
 	const { post, posts, isLoading } = useSelector((state) => state.posts);
 	// console.log(post);
@@ -39,7 +40,7 @@ const PostDetails = () => {
 				<FaArrowLeft />
 			</button>
 			<div className='container post-container d-flex flex-column flex-lg-row justify-content-around align-items-center'>
-				<div className='info p-3 order-1 order-lg-0'>
+				<div className='info p-3 order-1 order-lg-0 overflow-auto'>
 					<h1>{post.title}</h1>
 					<small className='text-muted'>{post.tags.map((tag) => `#${tag} `)}</small>
 					<p>{post.message}</p>
@@ -48,8 +49,7 @@ const PostDetails = () => {
 					<hr />
 					<strong>Real Time Chat Coming Soon !!</strong>
 					<hr />
-					<strong>Comments Coming Soon !!</strong>
-					<hr />
+					<CommentSection post={post} />
 				</div>
 				<div className='post-img order-0 order-lg-1'>
 					<img src={post.selectedFile} alt='...' className='img-post' />
