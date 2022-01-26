@@ -1,3 +1,4 @@
 [[redirects]]
   from = "/posts"
   to = "/"
+  status=200

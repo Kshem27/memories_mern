@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { FaImages, FaUserAlt } from 'react-icons/fa';
-import { useHistory, Link, useLocation } from 'react-router-dom';
+import { useHistory, Link, useLocation, Redirect } from 'react-router-dom';
+import { fetchPostsByUser } from '../actions/posts';
 import decode from 'jwt-decode';
 const Navbar = () => {
 	const [ user, setUser ] = useState(JSON.parse(localStorage.getItem('profile')));
@@ -26,6 +27,7 @@ const Navbar = () => {
 		},
 		[ location, setUser ]
 	);
+	// console.log(user.result.imageUrl);
 	return (
 		<nav className='navbar navbar-light background-light'>
 			<div className='container-fluid d-flex flex-column flex-sm-row '>
@@ -38,14 +40,30 @@ const Navbar = () => {
 							<img
 								src={user.result.imageUrl}
 								className='rounded-circle'
-								alt=' kadm'
+								alt='Img'
 								width='40px'
 								height='40px'
 							/>
 						) : (
 							<FaUserAlt />
 						)}
-						<p className='my-auto mx-2'>{user.result.name}</p>
+						<p
+							className='my-auto mx-2'
+							onClick={() => {
+								dispatch(
+									fetchPostsByUser(
+										(user && user.result && user.result.googleId) ||
+											(user && user.result && user.id)
+									)
+								);
+								history.push(
+									`/user/${(user && user.result && user.result.googleId) ||
+										(user && user.result && user.id)}`
+								);
+							}}
+						>
+							{user.result.name}
+						</p>
 						<button className='btn accent btn-sm' onClick={() => logout()}>
 							Sign Out
 						</button>

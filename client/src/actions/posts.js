@@ -11,7 +11,8 @@ import {
 	SHOW_POST,
 	FETCH_POST,
 	START_ERROR,
-	COMMENT
+	COMMENT,
+	FETCH_BY_USER
 } from '../constants/actionTypes';
 
 //ACTIOM CREATORS
@@ -106,6 +107,17 @@ export const showPost = (id) => async (dispatch) => {
 		dispatch({ type: SHOW_POST, payload: data });
 	} catch (error) {
 		dispatch({ type: START_ERROR, payload: error.response.data.message });
+		console.log(error);
+	}
+};
+export const fetchPostsByUser = (id) => async (dispatch) => {
+	try {
+		const { data } = await api.fetchPostsByUser(id);
+		// console.log('here before dispatch');
+		dispatch({ type: FETCH_BY_USER, payload: data.posts });
+		console.log(data.posts);
+	} catch (error) {
+		// dispatch({ type: START_ERROR, payload: error.response.data.message });
 		console.log(error);
 	}
 };

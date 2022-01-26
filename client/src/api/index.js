@@ -1,7 +1,8 @@
 import axios from 'axios';
 // const API = axios.create({ baseURL: 'https://memories-mern27.herokuapp.com/' });
 const API = axios.create({
-	baseURL: 'http://localhost:5000'
+	baseURL: 'https://memories-mern27.herokuapp.com'
+	// baseURL: 'http://localhost:5000/'
 });
 API.interceptors.request.use((req) => {
 	if (localStorage.getItem('profile')) {
@@ -21,3 +22,4 @@ export const comment = (val, id) => API.post(`/posts/${id}/commentPost`, { val }
 export const showPost = (id) => API.get(`/${id}`);
 export const signin = (formData) => API.post('/users/signin', formData);
 export const signup = (formData) => API.post('/users/signup', formData);
+export const fetchPostsByUser = (id) => API.get(`/posts/users/${id}`);

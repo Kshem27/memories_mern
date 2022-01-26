@@ -1,5 +1,5 @@
 import PostMessage from '../models/postMessage.js';
-
+import mongoose from 'mongoose';
 export const getPosts = async (req, res) => {
 	const { page } = req.query;
 	try {
@@ -81,10 +81,25 @@ export const commentPost = async (req, res) => {
 	}
 };
 export const deletePost = async (req, res) => {
-	const { id } = req.params;
-	const post = await PostMessage.findById(id);
-	if (post.creator !== req.userId) return res.json({ message: 'User not authorized' });
-	PostMessage.findByIdAndRemove(id)
-		.then(() => res.json({ message: 'Post deleted successfully.' }))
-		.catch((err) => res.status(404).send(`No post with id: ${id}`));
+	try {
+		const { id } = req.params;
+		const post = await PostMessage.findById(id);
+		if (post.creator !== req.userId) throw Error({ message: 'User not authorized' });
+		PostMessage.findByIdAndRemove(id)
+			.then(() => res.json({ message: 'Post deleted successfully.' }))
+			.catch((err) => res.status(404).send(`No post with id: ${id}`));
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+};
+export const fetchPostsByUser = async (req, res) => {
+	try {
+		const { id } = req.params;
+		const posts = await PostMessage.find({ creator: id });
+		// console.log('here');
+		res.json({ posts });
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({ message: error.message });
+	}
 };

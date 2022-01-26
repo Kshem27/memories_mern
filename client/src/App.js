@@ -6,6 +6,7 @@ import Home from './components/Home';
 import Auth from './components/Auth';
 import Modal from './components/Modal';
 import PostDetails from './components/PostDetails/PostDetails';
+import MyProfile from './components/MyProfile';
 const App = () => {
 	// const user = JSON.parse(localStorage.getItem('profile'));
 	// console.log(user);
@@ -32,6 +33,7 @@ const App = () => {
 						component={() =>
 							!JSON.parse(localStorage.getItem('profile')) ? <Auth /> : <Redirect to='/posts' />}
 					/>
+					<Route path='/user/:id' component={() => <MyProfile />} />
 				</Switch>
 			</div>
 		</Router>

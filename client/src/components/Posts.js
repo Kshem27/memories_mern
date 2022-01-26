@@ -7,7 +7,8 @@ import Loading from './Loading';
 const Posts = ({ setCurrentId }) => {
 	const { posts, isLoading } = useSelector((state) => state.posts);
 	// console.log(posts);
-	if (posts && !posts.length && !isLoading) return 'no posts';
+	if (posts && !posts.length && !isLoading)
+		return <h1 style={{ textAlign: 'center', color: 'white' }}>No Posts Found</h1>;
 	return isLoading ? (
 		<Loading />
 	) : (

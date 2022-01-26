@@ -13,3 +13,4 @@ export const FETCH_POST = 'FETCH_POST';
 export const AUTH = 'AUTH';
 export const LOGOUT = 'LOGOUT';
 export const SHOW_POST = 'SHOW_POST';
+export const FETCH_BY_USER = 'FETCH_BY_USER';

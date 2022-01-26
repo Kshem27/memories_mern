@@ -10,7 +10,8 @@ import {
 	FETCH_POST,
 	START_ERROR,
 	END_ERROR,
-	COMMENT
+	COMMENT,
+	FETCH_BY_USER
 } from '../constants/actionTypes';
 const posts = (state = { posts: [], isLoading: true, isError: false, errorMessage: '' }, action) => {
 	switch (action.type) {
@@ -64,6 +65,11 @@ const posts = (state = { posts: [], isLoading: true, isError: false, errorMessag
 			return {
 				...state,
 				post: action.payload
+			};
+		case FETCH_BY_USER:
+			return {
+				...state,
+				posts: action.payload
 			};
 		default:
 			return posts;

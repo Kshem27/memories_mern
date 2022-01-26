@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,600;0,700;0,800;1,300;1,500&display=swap');
 :root {
 	/* --primary-clr: #12232e;
 	--accent-clr: #4da8da;
@@ -198,13 +198,13 @@ nav {
 	height: 25vh;
 } */
 .post-container {
-	background: var(--white-clr);
+	background: rgb(160, 214, 218);
 	height: 70vh;
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
 	border-radius: var(--radius);
 }
 .post-container > .post-img {
-	width: 35%;
+	width: 40%;
 }
 @media screen and (max-width: 992px) {
 	.post-container {
@@ -221,11 +221,13 @@ nav {
 }
 .post-img {
 	height: 90%;
-	background: green;
+	/* background: green; */
 }
 .img-post {
 	height: 100%;
 	width: 100%;
+	/* display: block;
+	margin: 0 auto; */
 	border-radius: var(--radius);
 }
 .card {
@@ -234,10 +236,12 @@ nav {
 .card:hover {
 	opacity: 0.8;
 }
-nav > div > h1 {
+nav > div > h1,
+p {
 	transition: all 0.2s ease-in;
 }
-nav > div > h1:hover {
+nav > div > h1:hover,
+p:hover {
 	color: #07918e;
 	cursor: pointer;
 }
@@ -290,4 +294,21 @@ nav > div > h1:hover {
 }
 .comments {
 	height: 20vh;
+}
+.card-recommended {
+	transition: all 0.2s ease-in;
+}
+.card-recommended:hover {
+	background: rgb(144, 205, 209);
+}
+.myProfile {
+	color: var(--white-clr);
+	background: var(--accent-clr-900);
+	text-align: center;
+	padding: 2rem 0;
+	width: 50%;
+	min-width: 360px;
+	border-radius: var(--radius);
+	margin-top: 1rem;
+	margin-bottom: 1rem;
 }

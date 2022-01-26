@@ -17,6 +17,7 @@ const auth = async (req, res, next) => {
 		}
 		next();
 	} catch (error) {
+		res.status(500).json({ message: 'User not authorized' });
 		console.log(error);
 	}
 };

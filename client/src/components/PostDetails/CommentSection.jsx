@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Typography, TextField, Button } from '@material-ui/core';
+// import { Typography, TextField, Button } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { commentPost } from '../../actions/posts';
 const CommentSection = ({ post }) => {
@@ -9,7 +9,7 @@ const CommentSection = ({ post }) => {
 	const commentRef = useRef();
 	const user = JSON.parse(localStorage.getItem('profile'));
 	const handleClick = async () => {
-		console.log('clacnak');
+		// console.log('clacnak');
 		const finalComment = `${user.result.name}: ${comment}`;
 		const newComments = await dispatch(commentPost(finalComment, post._id));
 		setComments(newComments);
@@ -19,22 +19,20 @@ const CommentSection = ({ post }) => {
 	// console.log(post);
 	return (
 		<div className='container-fluid'>
-			<div className='row row-cols-1 row-cols-lg-2 '>
-				<div className='col-lg-4 comments overflow-auto'>
-					<h4>Comments</h4>
-					<hr />
-					{comments && comments.length == 0 && <p>No Comments Yet</p>}
-					{comments.map((c, i) => (
-						<p key={i}>
-							<strong>{c.split(':')[0]}</strong>
-							:{c.split(':')[1]}
-						</p>
-					))}
-					<div ref={commentRef} />
-				</div>
-				{user &&
-				user.result &&
-				user.result.name && (
+			{user && user.result && user.result.name ? (
+				<div className='row row-cols-1 row-cols-lg-2 '>
+					<div className='col-lg-4 comments overflow-auto'>
+						<h4>Comments</h4>
+						<hr />
+						{comments && comments.length === 0 && <p>No Comments Yet</p>}
+						{comments.map((c, i) => (
+							<p key={i}>
+								<strong>{c.split(':')[0]}</strong>
+								:{c.split(':')[1]}
+							</p>
+						))}
+						<div ref={commentRef} />
+					</div>
 					<div className='col-lg-8'>
 						<h4>Write a Comment</h4>
 						<textarea
@@ -47,8 +45,21 @@ const CommentSection = ({ post }) => {
 							Submit
 						</button>
 					</div>
-				)}
-			</div>
+				</div>
+			) : (
+				<div className='col comments overflow-auto'>
+					<h4>Comments</h4>
+					<hr />
+					{comments && comments.length === 0 && <p>No Comments Yet</p>}
+					{comments.map((c, i) => (
+						<p key={i}>
+							<strong>{c.split(':')[0]}</strong>
+							:{c.split(':')[1]}
+						</p>
+					))}
+					<div ref={commentRef} />
+				</div>
+			)}
 		</div>
 	);
 };

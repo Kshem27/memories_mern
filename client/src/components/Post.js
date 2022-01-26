@@ -6,21 +6,28 @@ import { useHistory } from 'react-router-dom';
 const Post = ({ post, setCurrentId }) => {
 	const dispatch = useDispatch();
 	const user = JSON.parse(localStorage.getItem('profile'));
+	const userId = (user && user.result && user.result.googleId) || (user && user.result && user.result.id);
+	const hasLiked = post.likes.find((like) => like === userId);
+	const [ like, setLike ] = useState(post && post.likes);
 	const history = useHistory();
 	const handleDelete = () => {
 		dispatch(deletePost(post._id));
 	};
-	const handleLike = () => {
+	const handleLike = async () => {
 		dispatch(likePost(post._id));
+		if (hasLiked) {
+			setLike(post.likes.filter((id) => id !== userId));
+		} else {
+			setLike([ ...post.likes, userId ]);
+		}
 	};
 	const openPost = () => {
 		history.push(`/posts/${post._id}`);
 	};
 	const { title, creator, message, selectedFile, tags, name, likes } = post;
-	const [ like, setLike ] = useState(post && post.likes);
 	const Likes = () => {
-		if (likes.length > 0) {
-			return likes.find(
+		if (like.length > 0) {
+			return like.find(
 				(like) =>
 					like === ((user && user.result && user.result.googleId) || (user && user.result && user.result._id))
 			) ? (
@@ -30,10 +37,10 @@ const Post = ({ post, setCurrentId }) => {
 					disabled={!(user && user.result)}
 				>
 					<FaThumbsUp />
-					&nbsp;{likes.length > 2 ? (
-						`You and ${likes.length - 1} others`
+					&nbsp;{like.length > 2 ? (
+						`You and ${like.length - 1} others`
 					) : (
-						`${likes.length} like${likes.length > 1 ? 's' : ''}`
+						`${like.length} like${like.length > 1 ? 's' : ''}`
 					)}
 				</button>
 			) : (
@@ -43,7 +50,7 @@ const Post = ({ post, setCurrentId }) => {
 					disabled={!(user && user.result)}
 				>
 					<FaThumbsUp />&nbsp;
-					{likes.length} {likes.length === 1 ? 'Like' : 'Likes'}
+					{like.length} {like.length === 1 ? 'Like' : 'Likes'}
 				</button>
 			);
 		}
@@ -77,7 +84,7 @@ const Post = ({ post, setCurrentId }) => {
 					<h5 className='card-title title'>{name}</h5>
 					<p className='card-subtitle mb-3 text-muted'>{tags.map((tag) => `#${tag} `)}</p>
 					<h6 className='card-subtitle mb-4 '>{title}</h6>
-					<p className='card-subtitle mb-1 text-muted'>{message}</p>
+					<p className='card-subtitle mb-1 text-muted'>{message.substring(0, 20)}...</p>
 					<button className='btn stretched-link' onClick={openPost} />
 				</div>
 				<div className='d-flex justify-content-between cardFooter'>

@@ -9,6 +9,12 @@ import CommentSection from './CommentSection';
 const PostDetails = () => {
 	const { post, posts, isLoading } = useSelector((state) => state.posts);
 	// console.log(post);
+	const date = post && new Date(post.createdAt);
+	const date1 = new Date();
+	const days = Math.floor((date1 - date) / (1000 * 60 * 60 * 24));
+	// console.log(date);
+	// console.log(date1);
+	// console.log(days);
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const { id } = useParams();
@@ -45,9 +51,9 @@ const PostDetails = () => {
 					<small className='text-muted'>{post.tags.map((tag) => `#${tag} `)}</small>
 					<p>{post.message}</p>
 					<h4 className='mt-5'>Created By: {post.name}</h4>
-					<small className='text-muted'>Created 19 Hours ago</small>
-					<hr />
-					<strong>Real Time Chat Coming Soon !!</strong>
+					<small className='text-muted'>Created {days} days ago</small>
+					{/* <hr />
+					<strong>Real Time Chat Coming Soon !!</strong> */}
 					<hr />
 					<CommentSection post={post} />
 				</div>
@@ -59,16 +65,25 @@ const PostDetails = () => {
 				<div className='container recommended'>
 					<h2>You might also Like</h2>
 					<hr />
-					<div className={`row row-cols-2 row-cols-md-4 p-2`}>
+					<div>
 						{recommendedPosts.map(({ name, title, message, likes, _id, selectedFile }) => (
-							<div style={{ cursor: 'pointer' }} onClick={() => openPost(_id)} key={_id} className='col'>
-								<div className='card h-100 p-1'>
-									<img src={selectedFile} className='recommended-img card-img-top' alt='hello' />
-
+							<div
+								style={{ cursor: 'pointer' }}
+								onClick={() => openPost(_id)}
+								key={_id}
+								className='card-recommended p-2 row '
+							>
+								{/* <div className='card-recommend p-1'> */}
+								<div className='col-md-3'>
+									<img className='float-right img-thumbnail' src={selectedFile} alt='hello' />
+								</div>
+								<div className='col-md-9 mb-3'>
 									<h4>{title}</h4>
 									<p className='text-muted'>{message}</p>
 									<p className='text-muted'>Likes:{likes.length}</p>
 								</div>
+								{/* </div> */}
+								<hr className='my-3' />
 							</div>
 						))}
 					</div>
